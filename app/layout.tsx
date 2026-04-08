@@ -11,7 +11,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "UserDash — User & Posts Dashboard",
+  title: "User Dashboard — User & Posts Dashboard",
   description:
     "A modern dashboard to browse users, explore their posts, and add new content using the JSONPlaceholder API.",
 };

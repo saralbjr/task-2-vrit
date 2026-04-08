@@ -14,11 +14,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const user = users.find((u) => u.id === Number(id));
     if (!user) return { title: "User Not Found" };
     return {
-      title: `${user.name}'s Posts | UserDash`,
+      title: `${user.name}'s Posts | User Dashboard`,
       description: `View all posts by ${user.name} from ${user.company.name}.`,
     };
   } catch {
-    return { title: "User Posts | UserDash" };
+    return { title: "User Posts | User Dashboard" };
   }
 }
 
