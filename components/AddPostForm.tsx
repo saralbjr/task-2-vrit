@@ -5,6 +5,7 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { postSchema, PostFormValues } from "@/lib/schemas";
 import { useDashboardStore } from "@/store/useStore";
+import toast from "react-hot-toast";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import dynamic from "next/dynamic";
@@ -18,7 +19,6 @@ interface AddPostFormProps {
 
 export default function AddPostForm({ userId }: AddPostFormProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
   const addPost = useDashboardStore((s) => s.addPost);
 
   const {
@@ -37,12 +37,9 @@ export default function AddPostForm({ userId }: AddPostFormProps) {
 
   const onSubmit = async (data: PostFormValues) => {
     addPost({ ...data, userId });
-    setSubmitted(true);
+    toast.success("Post submitted");
     reset();
-    setTimeout(() => {
-      setSubmitted(false);
-      setIsOpen(false);
-    }, 2000);
+    setIsOpen(false);
   };
 
   const handleClose = () => {
@@ -87,17 +84,6 @@ export default function AddPostForm({ userId }: AddPostFormProps) {
 
             {/* Modal Body */}
             <div className="p-6 overflow-y-auto">
-              {submitted ? (
-                <div
-                  className="flex items-center justify-center gap-3 bg-primary-light dark:bg-primary/20 text-primary dark:text-blue-400 rounded-xl p-8 text-base font-medium border border-primary/20 animate-in zoom-in-95"
-                  role="alert"
-                >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                  <span className="text-primary dark:text-blue-400">Post published successfully!</span>
-                </div>
-              ) : (
                 <form id="add-post-form" onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-6">
                   {/* Title Field */}
                   <Input
@@ -156,7 +142,6 @@ export default function AddPostForm({ userId }: AddPostFormProps) {
                     </Button>
                   </div>
                 </form>
-              )}
             </div>
           </div>
         </div>
